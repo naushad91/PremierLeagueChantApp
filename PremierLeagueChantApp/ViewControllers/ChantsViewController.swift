@@ -8,45 +8,66 @@
 import UIKit
 
 class ChantsViewController: UIViewController {
-
+    
+    //MARK: - UI
+    private lazy var tableVw: UITableView = {
+        let tv = UITableView()
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.backgroundColor = .clear
+        tv.rowHeight = UITableView.automaticDimension
+        tv.estimatedRowHeight = 44
+        tv.separatorStyle = .none
+        tv.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        return tv
+    }()
+    
+    // MARK: - Lifecycle
+    
+    override func loadView() {
+        super.loadView()
+        setup()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = .systemBlue
+    }
+}
 
-        let tableVw: UITableView = {
-            let tv = UITableView()
-            tv.translatesAutoresizingMaskIntoConstraints = false
-            tv.backgroundColor = .clear
-            tv.rowHeight = UITableView.automaticDimension
-            tv.estimatedRowHeight = 44
-            tv.separatorStyle = .none
-            tv.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-            return tv
-        }()
+// Extensions must be OUTSIDE the class
+private extension ChantsViewController {
+    
+    func setup() {
+        view.addSubview(tableVw)
+        tableVw.dataSource = self
+        tableVw.delegate = self
 
-        // MARK: - Lifecycle
+        NSLayoutConstraint.activate([
+            tableVw.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableVw.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor ),
+            tableVw.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 24.0),
+            tableVw.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,constant: -24.0)
+        ])
+    }
+}
 
-        override func loadView() {
-            super.loadView()
-            setup()
+extension ChantsViewController:UITableViewDataSource,UITableViewDelegate{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell=tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        switch indexPath.row {
+        case 0:
+            cell.backgroundColor = .systemTeal
+        case 1:
+            cell.backgroundColor = .systemGray
+        case 2:
+            cell.backgroundColor = .systemPink
+        default:
+            break
         }
-
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            self.view.backgroundColor = .systemBlue
-        }
-
-        private extension ChantsViewController {
-
-            func setup() {
-                self.view.addSubview(tableVw)
-
-                NSLayoutConstraint.activate([
-                    tableVw.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-                    tableVw.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-                    tableVw.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-                    tableVw.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
-                ])
-            }
-        
-
+        return cell
+    }
 }
