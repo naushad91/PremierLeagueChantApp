@@ -27,6 +27,21 @@ class TeamTableViewCell: UITableViewCell {
         stackVw.axis = .vertical
         return stackVw
     }()
+    
+    
+    private lazy var badgeImgVw: UIImageView = {
+        let imgVw = UIImageView()
+        imgVw.translatesAutoresizingMaskIntoConstraints = false
+        imgVw.contentMode = .scaleAspectFit
+        return imgVw
+    }()
+
+    private lazy var playbackBtn: UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.tintColor = .white
+        return btn
+    }()
 
     private lazy var nameLbl: UILabel = {
         let lbl = UILabel()
@@ -79,6 +94,8 @@ class TeamTableViewCell: UITableViewCell {
         self.contentView.addSubview(containerVw)
 
         containerVw.addSubview(contentStackVw)
+        containerVw.addSubview(badgeImgVw)
+        containerVw.addSubview(playbackBtn)
 
         contentStackVw.addArrangedSubview(nameLbl)
         contentStackVw.addArrangedSubview(foundedLbl)
@@ -90,11 +107,21 @@ class TeamTableViewCell: UITableViewCell {
             containerVw.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
             containerVw.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
             containerVw.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
+            
+                badgeImgVw.heightAnchor.constraint(equalToConstant: 50),
+                badgeImgVw.widthAnchor.constraint(equalToConstant: 50),
+                badgeImgVw.topAnchor.constraint(equalTo: contentStackVw.topAnchor),
+                badgeImgVw.leadingAnchor.constraint(equalTo: containerVw.leadingAnchor, constant: 8),
 
-            contentStackVw.topAnchor.constraint(equalTo: self.containerVw.topAnchor, constant: 8),
-            contentStackVw.bottomAnchor.constraint(equalTo: self.containerVw.bottomAnchor, constant: -8),
-            contentStackVw.leadingAnchor.constraint(equalTo: self.containerVw.leadingAnchor, constant: 8),
-            contentStackVw.trailingAnchor.constraint(equalTo: self.containerVw.trailingAnchor, constant: -8)
+                contentStackVw.topAnchor.constraint(equalTo: containerVw.topAnchor, constant: 16),
+                contentStackVw.bottomAnchor.constraint(equalTo: containerVw.bottomAnchor, constant: -16),
+                contentStackVw.leadingAnchor.constraint(equalTo: badgeImgVw.trailingAnchor, constant: 8),
+                contentStackVw.trailingAnchor.constraint(equalTo: playbackBtn.leadingAnchor, constant: -8),
+
+                playbackBtn.heightAnchor.constraint(equalToConstant: 44),
+                playbackBtn.widthAnchor.constraint(equalToConstant: 44),
+                playbackBtn.trailingAnchor.constraint(equalTo: containerVw.trailingAnchor, constant: -8),
+                playbackBtn.centerYAnchor.constraint(equalTo: containerVw.centerYAnchor)
         ])
     }
 }

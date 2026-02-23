@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChantsViewController: UIViewController {
+class ChantsViewController: UIViewController, UITableViewDelegate {
     
     //MARK: - UI
     private lazy var tableVw: UITableView = {
