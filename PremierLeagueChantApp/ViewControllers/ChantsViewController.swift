@@ -31,7 +31,7 @@ class ChantsViewController: UIViewController, UITableViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemBlue
+        self.view.backgroundColor = .white
     }
 }
 
@@ -42,6 +42,9 @@ private extension ChantsViewController {
         view.addSubview(tableVw)
         tableVw.dataSource = self
         tableVw.delegate = self
+        
+        navigationController?.navigationBar.topItem?.title = "Football Chants"
+        navigationController?.navigationBar.prefersLargeTitles = true
 
         NSLayoutConstraint.activate([
             tableVw.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),

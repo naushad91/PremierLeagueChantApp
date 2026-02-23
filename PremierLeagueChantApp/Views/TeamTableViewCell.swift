@@ -78,10 +78,27 @@ class TeamTableViewCell: UITableViewCell {
         lbl.textColor = .white
         return lbl
     }()
+    
+    // MARK: - Lifecycle
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        containerVw.layer.cornerRadius = 10
+    }
 
     func configure() {
 
         containerVw.backgroundColor = TeamType.arsenal.background
+        
+        badgeImgVw.image = TeamType.arsenal.badge
+
+        playbackBtn.setImage(
+            UIImage(
+                systemName: "play.circle.fill",
+                withConfiguration: UIImage.SymbolConfiguration(pointSize: 32)
+            ),
+            for: .normal
+        )
 
         nameLbl.text = "Arsenal"
         foundedLbl.text = "1800"
@@ -103,10 +120,12 @@ class TeamTableViewCell: UITableViewCell {
         contentStackVw.addArrangedSubview(infoLbl)
 
         NSLayoutConstraint.activate([
-            containerVw.topAnchor.constraint(equalTo: self.contentView.topAnchor),
-            containerVw.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
-            containerVw.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
-            containerVw.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
+            containerVw.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8),
+                containerVw.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -8),
+                containerVw.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 8),
+            containerVw.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -8),
+
+           
             
                 badgeImgVw.heightAnchor.constraint(equalToConstant: 50),
                 badgeImgVw.widthAnchor.constraint(equalToConstant: 50),
